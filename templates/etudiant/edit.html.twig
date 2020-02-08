@@ -1,0 +1,15 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit Etudiant{% endblock %}
+
+{% block body %}
+    <h1>Edit Etudiant</h1>
+
+    {{ include('etudiant/_form.html.twig', {'button_label': 'Update'}) }}
+
+    <a href="{{ path('etudiant_show', {'id': app.user.etudiant.id}) }}">return</a>
+     {% if app.user.type == 'P' or app.user.type == 'p' %}  
+{{ include('etudiant/_delete_form.html.twig') }}
+{% endif %}
+    
+{% endblock %}

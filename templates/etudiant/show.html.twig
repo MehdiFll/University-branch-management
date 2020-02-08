@@ -1,0 +1,43 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Etudiant{% endblock %}
+
+{% block body %}
+    <h1>Etudiant</h1>
+
+    <table class="table">
+        <tbody>
+            
+            <tr>
+                <th>Cne</th>
+                <td>{{ etudiant.cne }}</td>
+            </tr>
+             <tr>
+                <th>Nom et prénom</th>
+                <td>{{ etudiant.user }}</td>
+            </tr>
+            <tr>
+                <th>login</th>
+                <td>{{ etudiant.user.username }}</td>
+            </tr>
+            <tr>
+                <th>DateNaissance</th>
+                <td>{{ etudiant.dateNaissance }}</td>
+            </tr>
+            <tr>
+                <th>Cin</th>
+                <td>{{ etudiant.cin }}</td>
+            </tr>
+            <tr>
+                <th>AnneeInscription</th>
+                <td>{{ etudiant.anneeInscription }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    
+{% if (app.user.type == 'P' or  app.user.type == 'p' ) %}
+    <a href="{{ path('etudiant_edit', {'id': etudiant.id}) }}">edit</a>
+{% endif %}
+    
+{% endblock %}

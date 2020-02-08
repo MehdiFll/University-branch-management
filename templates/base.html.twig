@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <!-- Meta, title, CSS, favicons, etc. -->
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+<title>{% block title %}Welcome!{% endblock %}</title>
+
+  <!-- Bootstrap core CSS -->
+
+  <link href="{{ asset('assets/css/bootstrap.min.css') }}" rel="stylesheet">
+  <link href="{{ asset('assets/fonts/css/font-awesome.min.css') }}" rel="stylesheet">
+  <link href="{{ asset('assets/css/animate.min.css') }}" rel="stylesheet">
+
+  <!-- Custom styling plus plugins -->
+  <link href="{{ asset('assets/css/custom.css') }}" rel="stylesheet">
+  <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/maps/jquery-jvectormap-2.0.3.css') }}" />
+  <link href="{{ asset('assets/css/icheck/flat/green.css') }}" rel="stylesheet" />
+  <link href="{{ asset('assets/css/floatexamples.css') }}" rel="stylesheet" type="text/css" />
+
+  <script src="{{ asset('assets/js/jquery.min.js') }}"></script>
+  <script src="{{ asset('assets/js/nprogress.js') }}"></script>
+
+   <link href="{{ asset('assets/js/fullcalendar/dist/fullcalendar.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('assets/js/fullcalendar/dist/fullcalendar.print.css') }}" rel="stylesheet" media="print">
+
+  <!--[if lt IE 9]> 
+        <script src="../assets/js/ie8-responsive-file-warning.js"></script>
+        <![endif]-->
+
+  <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+  <!--[if lt IE 9]>
+          <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+          <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+        <![endif]-->
+
+</head>
+
+ 
+<body class="nav-md">
+{% if app.user %}
+  <div class="container body">
+
+
+    <div class="main_container">
+   <!-- sidebar menu -->
+         
+      <div class="col-md-3 left_col">
+        <div class="left_col scroll-view">
+
+          <div class="navbar nav_title" style="border: 0;">
+            <a class="site_title"><span>Gestion LSI</span></a>
+          </div>
+          <div class="clearfix"></div>
+
+          <!-- menu prile quick info -->
+          <div class="profile">
+            <div class="profile_pic">
+              <img src="{{ asset('assets/user.png') }}" class="img-circle profile_img">
+            </div>
+            <div class="profile_info">
+              <span>Bienvenue,</span>
+              <h2>{{ app.user }}</h2>
+            </div>
+          </div>
+          <!-- /menu prile quick info -->
+
+          <br />
+<br>
+              <br>
+       
+          <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
+<br>
+              <br>
+            <div class="menu_section">
+             
+              <ul class="nav side-menu">
+              
+               
+                
+{% if app.user.type == 'E' or app.user.type == 'e' %}
+<li><a href="{{ path('etudiant_show', {'id': app.user.etudiant.id}) }}"> Profil </a>
+<li><a href="{{ path('note_index') }}"> Mes résultats </a></li>
+<li><a href="{{ path('etudiant_index') }}"> Liste étudiants </a></li>
+<li><a href="{{ path('module_index') }}"> Liste modules </a></li>
+<li><a href="{{ path('planning_index2', {'id': app.user.etudiant.filiere.id}) }}"> Planning </a></li>
+             {% endif %}
+
+           
+                
+ {% if app.user.type == 'P' or app.user.type == 'p' %}       
+            
+            </li>
+  
+</li>
+            {% endif %}
+
+
+{% if app.user.type == 'P' or app.user.type == 'p' %}
+<li><a href="{{ path('professeur_show', {'id': app.user.professeur.id}) }}"> Profil </a></li>
+<li><a href="{{ path('note_index') }}"> Résultats des étudiants </a></li>
+<li><a href="{{ path('etudiant_index') }}"> Liste des étudiants </a></li>
+<li><a href="{{ path('module_index') }}"> Mes modules </a></li>
+<li><a href="{{ path('planning_index') }}"> Planning </a></li>
+<li><a href="{{ path('filiere_index') }}"> Liste des filières </a></li>
+             {% endif %}
+                {% if app.user.type == 'A' or app.user.type == 'a' %}
+<li><a href="{{ path('user_index') }}"> Users</a></li>
+<li><a href="{{ path('professeur_index') }}"> Professeurs</a></li>
+
+
+
+             {% endif %}
+
+              </ul>
+            </div>
+            
+          </div>
+
+          <!-- /sidebar menu -->
+
+          <!-- /menu footer buttons -->
+      
+          <!-- /menu footer buttons -->
+        </div>
+      </div>
+          {% endif %}
+
+      <!-- top navigation -->
+      <div class="top_nav">
+
+        <div class="nav_menu">
+          <nav class="" role="navigation">
+           
+             
+<ul class="nav navbar-nav navbar-right">
+                <li class="">
+                {% if app.user %}
+                  <a href="{{ path('logout') }}" >Se déconnecter
+                  </a>
+                  {% endif %}
+                  
+                </li>
+
+               
+                 
+              </ul>
+
+          
+
+            
+          </nav>
+        </div>
+
+      </div>
+      <!-- /top navigation -->
+
+
+      <!-- page content -->
+      <div class="right_col" role="main">
+
+        <!-- top tiles -->
+       <div class="x_panel">
+ {% block body %} {% endblock %}
+         </div>
+
+          </div>
+
+       <!-- </div> 
+
+        <!-- footer content -->
+
+        
+        <!-- /footer content -->
+      </div>
+      
+      <!-- /page content -->
+
+    </div>
+
+  </div>
+
+  <div id="custom_notifications" class="custom-notifications dsp_none">
+    <ul class="list-unstyled notifications clearfix" data-tabbed_notifications="notif-group">
+    </ul>
+    <div class="clearfix"></div>
+    <div id="notif-group" class="tabbed_notifications"></div>
+  </div>
+
+  <script src="{{ asset('assets/js/bootstrap.min.js') }}"></script>
+
+
+
+  <script src="{{ asset('assets/js/custom.js') }}"></script>
+
+
+
+  <!-- /footer content -->
+</body>
+
+</html>

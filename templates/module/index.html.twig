@@ -1,0 +1,72 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Module index{% endblock %}
+
+{% block body %}
+    <h1>Module index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Semestre</th>
+                <th>Nom</th>
+                <th>Description</th>
+                <th>Professeur</th>
+                <th>Filiere</th>
+               {% if app.user.type == 'p' or  app.user.type == 'P'%}    <th>Actions</th> {% endif %}
+                
+            </tr>
+        </thead>
+        <tbody>
+        {% if app.user.type == 'e' or  app.user.type == 'E'%}  
+        {% for module in modules %}
+            {% if app.user.etudiant.filiere == module.filiere %}  
+       
+            <tr>
+                <td>{{ module.semestre }}</td>
+                <td>{{ module.nom }}</td>
+                <td>{{ module.description }}</td>                
+                <td>{{ module.prof }}</td>
+                <td>{{ module.filiere }}</td>
+                {% if app.user.type == 'P' or  app.user.type == 'p'%}                
+                <td>
+                    <a href="{{ path('module_show', {'id': module.id}) }}">show</a>
+                    <a href="{{ path('module_edit', {'id': module.id}) }}">edit</a>
+                </td> {% endif %}
+            </tr>
+       {% endif %}
+           
+        {% endfor %}
+ {% endif %}
+
+  {% if app.user.type == 'p' or  app.user.type == 'P'%}  
+        {% for module in modules %}
+            {% if app.user.professeur == module.prof %}  
+       
+            <tr>
+                <td>{{ module.semestre }}</td>
+                <td>{{ module.nom }}</td>
+                <td>{{ module.description }}</td>                
+                <td>{{ module.prof }}</td>
+                <td>{{ module.filiere }}</td>
+                {% if app.user.type == 'P' or  app.user.type == 'p'%}                
+                <td>
+                    <a href="{{ path('module_show', {'id': module.id}) }}">show</a>
+                    <a href="{{ path('module_edit', {'id': module.id}) }}">edit</a>
+                </td> {% endif %}
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="5">no records found</td>
+            </tr>
+           {% endif %}
+        {% endfor %}
+ {% endif %}
+
+
+        </tbody>
+    </table>
+{% if app.user.type == 'P' or  app.user.type == 'p'%}     
+    <a href="{{ path('module_new') }}">Create new</a>
+    {% endif %}
+{% endblock %}

@@ -1,0 +1,12 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit Professeur{% endblock %}
+
+{% block body %}
+    <h1>Edit Professeur</h1>
+
+    {{ include('professeur/_form.html.twig', {'button_label': 'Update'}, {Cin : 'guhdjsdjzgjj'}) }}
+
+    <a href="{{ path('professeur_show' , {'id': app.user.professeur.id}) }}">return</a>
+
+{% endblock %}

@@ -1,0 +1,65 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Etudiant index{% endblock %}
+
+{% block body %}
+    <h1>Etudiant index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>CNE</th>
+                <th>Nom et prénom</th>
+                <th>DateNaissance</th>
+                {% if (app.user.type == 'P' or  app.user.type == 'p' ) %} 
+                <th>Cin</th>
+                <th>AnneeInscription</th>
+                <th>Filière </th>
+                  
+                <th>actions</th>
+{% endif %}
+
+            </tr>
+        </thead>
+        <tbody>
+        {% for etudiant in etudiants %}
+            <tr>
+              {% if (app.user.type == 'e' or  app.user.type == 'E' ) %} 
+                {% if (etudiant.filiere == app.user.etudiant.filiere) %} 
+                    <td>{{ etudiant.cne }}</td>
+                    <td>{{etudiant.user}} </td>
+                    <td>{{ etudiant.dateNaissance }}</td>
+                 
+                    
+                        {% endif %}
+  {% endif %}
+
+                {% if (app.user.type == 'P' or  app.user.type == 'p' ) %} 
+                    <td>{{ etudiant.cne }}</td>
+                    <td>{{etudiant.user}} </td>
+                    <td>{{ etudiant.dateNaissance }}</td>
+                    <td>{{ etudiant.cin }}</td>
+                    <td>{{ etudiant.anneeInscription }}</td>
+                    <td> {{etudiant.filiere}} </td>
+                    
+                    <td>
+                        <a href="{{ path('etudiant_show', {'id': etudiant.id}) }}">show</a>
+                        <a href="{{ path('etudiant_edit', {'id': etudiant.id}) }}">edit</a>
+                    </td>
+                        {% endif %}
+
+
+
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="6">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+ {% if (app.user.type == 'P' or  app.user.type == 'p' or app.user.type == 'a' ) %} 
+                <a href="{{ path('etudiant_new') }}">Create new</a>
+{% endif %}
+   
+{% endblock %}

@@ -1,0 +1,57 @@
+{% extends 'base.html.twig' %}
+
+
+{% block body %}
+    <h1>Fiche étudiant</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+            {% if app.user.type == 'P' or app.user.type == 'p' %}
+            <th>Filiere</th>
+            <th>Etudiant</th>    {% endif %}
+            
+                <th>Semestre</th>
+                
+                <th>Module</th>
+                <th>Note</th>
+                <th>Absence</th>
+            {% if app.user.type == 'P' or app.user.type == 'p' %} 
+                 <th>Actions</th>
+                   {% endif %}
+            </tr>
+        </thead>
+        <tbody>
+        {% for note in notes %}
+                 {% if note.module.prof.user == app.user or note.etudiant.user == app.user  %}
+            <tr>
+                
+                
+              {% if app.user.type == 'P' or app.user.type == 'p' %}  <td>{{ note.etudiant.filiere}}</td>
+              <td>{{ note.etudiant}}</td>
+                  {% endif %}
+                <td>{{ note.module.semestre}}</td>
+                <td>{{ note.module}}</td>
+                <td>{{ note.note }}</td>
+                <td>{{ note.absence }}</td>
+ {% if app.user.type == 'P' or app.user.type == 'p' %} <td>
+    <a href="{{ path('note_edit', {'id': note.id}) }}">edit</a>
+
+    {{ include('note/_delete_form.html.twig') }}
+                </td>
+                   {% endif %}
+            </tr>
+                    {% endif %}
+
+        {% else %}
+            <tr>
+                <td colspan="3">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% if app.user.type == 'P' or app.user.type == 'p' %}
+    <a href="{{ path('note_new') }}">Create new</a>
+
+    {% endif %}
+{% endblock %}

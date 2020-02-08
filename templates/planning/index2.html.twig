@@ -1,0 +1,72 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Planning index
+
+   
+
+{% endblock %}
+
+{% block body %}
+{% if app.user.type == 'P' or app.user.type == 'p' or app.user.type == 'E' or app.user.type == 'e' %}
+    <h1>Planning index</h1>
+ 
+    <div id="calendar"></div>
+ 
+
+    <script src="{{ asset('assets/js/moment/moment.min.js') }}"></script>
+    <script src="{{ asset('assets/js/fullcalendar/dist/fullcalendar.min.js') }}"></script>
+    <script src="{{ asset('assets/js/fullcalendar/dist/locale-all.js') }}"></script>
+  
+<script>
+	
+		$('#calendar').fullCalendar({
+			header: {
+				left: 'prev,next today',
+				center: 'title',
+				right: 'month,agendaWeek,agendaDay,listWeek'
+			},
+			
+			eventLimit: true, // allow "more" link when too many events
+            locale: 'fr',
+            timeFormat: 'H:mm',
+            displayEventEnd:true,
+            
+            events: [
+                {% for p in plannings %}
+				{
+					id: '{{ p.id }}',
+                 
+					title: '{{ p.titre }}',
+					start: '{{ p.datedebut }}',
+					end: '{{ p.datefin }}',
+                    
+                    color: '#1ABB9C',
+                  
+				
+				},
+			 {% endfor %}
+			],
+                
+                
+                //window.alert(d)
+        //window.open(window.location.href+'/create/'+d, "_self");  
+           // window.open(window.location.href+d+'/new', "_self");  
+                
+        
+
+    }
+                
+                );
+            
+
+                
+
+	
+
+                
+
+                
+</script>
+
+ {% endif %}
+{% endblock %}

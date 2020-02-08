@@ -1,0 +1,38 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Filiere{% endblock %}
+
+{% block body %}
+    <h1>Filiere</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ filiere.id }}</td>
+            </tr>
+            <tr>
+                <th>Nom</th>
+                <td>{{ filiere.nom }}</td>
+            </tr>
+            <tr>
+                <th>AnneeInscription</th>
+                <td>{{ filiere.anneeInscription }}</td>
+            </tr>
+            <tr>
+                <th>AnneeFin</th>
+                <td>{{ filiere.anneeFin }}</td>
+            </tr>
+            <tr>
+                <th>SemestreCourant</th>
+                <td>{{ filiere.semestreCourant }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('filiere_index') }}">back to list</a>
+
+    <a href="{{ path('filiere_edit', {'id': filiere.id}) }}">edit</a>
+
+    {{ include('filiere/_delete_form.html.twig') }}
+{% endblock %}

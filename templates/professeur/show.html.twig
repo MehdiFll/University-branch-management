@@ -1,0 +1,42 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Professeur{% endblock %}
+
+{% block body %}
+    <h1>Professeur</h1>
+
+    <table class="table">
+        <tbody>
+            
+            <tr>
+                <th>Cin</th>
+                <td>{{ professeur.cin }}</td>
+            </tr>
+            <tr>
+                <th>DateNaissance</th>
+                <td>{{ professeur.dateNaissance }}</td>
+            </tr>
+            <tr>
+                <th>Grade</th>
+                <td>{{ professeur.grade }}</td>
+            </tr>
+            <tr>
+                <th>Tel</th>
+                <td>{{ professeur.tel }}</td>
+            </tr>
+            <tr>
+                <th>Departement</th>
+                <td>{{ professeur.departement }}</td>
+            </tr>
+            <tr>
+                <th>Specialite</th>
+                <td>{{ professeur.specialite }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    
+
+    <a href="{{ path('professeur_edit', {'id': professeur.id}) }}">edit</a>
+
+{% endblock %}
